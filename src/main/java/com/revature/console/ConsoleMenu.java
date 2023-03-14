@@ -55,5 +55,7 @@ public class ConsoleMenu implements Menu {
 
         }
 
+        input.cleanup();
+
     }
 }
