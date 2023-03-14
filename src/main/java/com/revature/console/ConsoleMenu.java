@@ -10,32 +10,29 @@ public class ConsoleMenu {
     
 
     public void init(){
-        ConsoleInput ci = new ConsoleInput(new Scanner(System.in));
+        ConsoleInput consoleInput = new ConsoleInput(new Scanner(System.in));
         boolean running = true;
 
         while(running){
+            todoService.getAllTodos();
             this.welcomeMenu();
-            int option = ci.getMenuOption();
+            int option = consoleInput.retrieveNum("Option: ");
 
             switch(option){
                 case 1: 
-                    todoService.getAllTodos();
+                    String taskName = consoleInput.retrieveString("Task Name: ");
+                    Todo newTodo = todoService.createTodo(new Todo(taskName));
+                    System.out.println("New Todo Created: " + newTodo);
                     break;
                 case 2: 
-                    Todo credentials = ci.createTodoInputs();
-                    if(credentials != null)
-                        todoService.createTodo(credentials);
-                    
+                    int updateTodoId = consoleInput.retrieveNum("Todo Id To Update: ");
+                    Todo updatedTodo = todoService.updateTodo(updateTodoId);
+                    if(updatedTodo != null) System.out.println("Todo with id " + updateTodoId + " marked as complete");
+                    else System.out.println("Todo with id " + updateTodoId + " does not exist in system");
                     break;
                 case 3: 
-                    Todo updatedCreds = ci.updateTodoInputs();
-                    if(updatedCreds != null)
-                        todoService.updateTodo(updatedCreds);
-                    break;
-                case 4:
-                    int todoId = ci.deleteTodoInputs();
-                    if(todoId != -1) 
-                        todoService.deleteTodo(todoId);
+                    int deletedTodoId = consoleInput.retrieveNum("Todo Id To Delete: ");
+                    todoService.deleteTodo(deletedTodoId);
                     break;
                 case 0:
                     running = false; 
@@ -47,11 +44,10 @@ public class ConsoleMenu {
     }
 
     private void welcomeMenu(){
-        System.out.println( "Welcome!\n" +
-                            "1) Display Todos\n" + 
-                            "2) Create Todo\n" + 
-                            "3) Update Todo\n" + 
-                            "4) Delete Todo\n" +
+        System.out.println( "\n\n" +
+                            "1) Create Todo\n" + 
+                            "2) Mark Todo Complete\n" + 
+                            "3) Delete Todo\n" +
                             "0) EXIT"
                           );
     }

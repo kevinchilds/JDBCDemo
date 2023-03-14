@@ -57,8 +57,8 @@ public class ConsoleInput {
         return todo;
     }
 
-    public int deleteTodoInputs() {
-        System.out.print("todo id: ");
+    public int deleteTodoInputs(String output) {
+        System.out.print(output);
         String input = scanner.nextLine();
         int num = -1;
 
@@ -69,5 +69,28 @@ public class ConsoleInput {
         }
 
         return num;
+    }
+
+    public int retrieveNum(String output){
+        
+        boolean validNum = false;
+        int num = -1;
+        while(!validNum){
+            System.out.print(output);
+            String input = scanner.nextLine();
+            try{
+                num = Integer.parseInt(input);
+                validNum = true;
+            }catch(Exception e){
+                System.out.println("Invalid input...");
+            }
+        }
+
+        return num;
+    }
+
+    public String retrieveString(String output){
+        System.out.print(output);
+        return scanner.nextLine();
     }
 }

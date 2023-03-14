@@ -18,7 +18,7 @@ public class TodoService {
 
     public void getAllTodos() {
         List<Todo> todos = this.todoRepository.selectAll();
-
+        System.out.println("\nDisplaying All Todos...");
         for(Todo todo : todos){
             System.out.println(todo);
         }
@@ -28,20 +28,19 @@ public class TodoService {
         return this.todoRepository.createOne(credentials);
     }
 
-    public Todo updateTodo(Todo updatedCreds) {
+    public Todo updateTodo(int todoId) {
         //check Id exists
-        Todo todoFromDb = this.todoRepository.selectOne(updatedCreds.getTodoId());
+        Todo todoFromDb = this.todoRepository.selectOne(todoId);
         
         if(todoFromDb == null){
-            System.out.println("Todo with id " + updatedCreds.getTodoId() + " does not exist in system");
             return null;
         }
 
-        return this.todoRepository.updateOne(updatedCreds);
+        return this.todoRepository.updateOne(todoId);
     }
 
     public void deleteTodo(int todoId) {
-        System.out.println("deleted todo with id " + todoId + " if exists");
+        System.out.println("Deleted todo with id " + todoId + " if exists");
         this.todoRepository.deleteOne(todoId);
     }
     

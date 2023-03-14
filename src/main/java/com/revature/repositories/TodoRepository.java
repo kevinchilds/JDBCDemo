@@ -31,11 +31,10 @@ public class TodoRepository {
         return null;
     }
 
-    public Todo updateOne(Todo updatedCreds) {
+    public Todo updateOne(int todoId) {
         for(Todo todo : todos){
-            if(todo.getTodoId() == updatedCreds.getTodoId()){
-                todo.setTaskName(updatedCreds.getTaskName());
-                todo.setCompleted(updatedCreds.getCompleted());
+            if(todo.getTodoId() == todoId){
+                todo.setCompleted(true);
                 return todo;
             }
         }
