@@ -1,13 +1,11 @@
-package com.revature.repositories;
+package com.revature.daos;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.revature.models.Todo;
 
-public class TodoRepository {
+public class TodoDAOJavaImpl implements TodoDAO{
     private static List<Todo> todos = new ArrayList<>();
     private static int serial = 1;
 
